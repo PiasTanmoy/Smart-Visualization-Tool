@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,
+initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Smart Scale</title>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+    .chart {
+      text-align: center;
+      margin: auto;
+    }
+
+    .row {
+      margin-bottom: 150px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    body {
+        background: #1D1F20;
+      padding: 16px;
+        color: white;
+    }
+
+    canvas {
+      border: 1px dotted red;
+    }
+
+    .chart-container {
+
+      position: relative;
+      margin: auto;
+      height: 80vh;
+      width: 80vw;
+    }
+
+    table, th, td {
+      border: 1px solid gray;
+        padding: 10px;
+        margin-bottom: 50px;
+    }
+    tr:hover {background-color: rgba(172, 145, 145, 0.24);}
+
+    table {
+  overflow: hidden;
+    }
+
+    tr:hover {
+      background-color: rgba(172, 145, 145, 0.24);
+
+    }
+    td:hover {
+
+
+    }
+
+    td, th {
+      position: relative;
+    }
+    td:hover::after,
+    th:hover::after {
+      content: "";
+      position: absolute;
+      background-color: rgba(172, 145, 145, 0.24);
+      left: 0;
+      top: -5000px;
+      height: 10000px;
+      width: 100%;
+      z-index: -1;
+    }
+
+
+
+
+
+
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+
+<body>
+
+
+<h1>Smart Scale</h1>
+
+
+
+<div class="container" id="data-table">
+    <table>
+<!-- here goes our data! -->
+    </table>
+</div>
+
+<div id="example-table"></div>
+
+<div class="container-xl">
+    <div class="row">
+        <div class="col-6 chart">
+            <canvas id="myChart" width="500" height="300"></canvas>
+        </div>
+        <div class="col-6 chart">
+            <canvas id="myChart2" width="500" height="300"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 chart">
+            <canvas id="myChart3" width="500" height="400"></canvas>
+        </div>
+        <div class="col-6 chart">
+            <canvas id="myChart4" width="500" height="400"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 chart">
+            <canvas id="myChart5" width="500" height="400"></canvas>
+        </div>
+        <div class="col-6 chart">
+            <canvas id="myChart6" width="500" height="400"></canvas>
+        </div>
+    </div>
+</div>
+
+
+{#<img src="../media/g.jpg">#}
+
+<script src="../media/JS/Graphs.js"></script>
+
+
+</body>
+</html>

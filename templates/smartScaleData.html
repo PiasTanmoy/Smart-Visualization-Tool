@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,
+    initial-scale=1, maximum-scale=1, user-scalable=no">
+      <title>Smart Scale</title>
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .chart {
+          text-align: center;
+          margin: auto;
+        }
+
+        .row {
+          margin-bottom: 150px;
+        }
+
+        h1 {
+          text-align: center;
+          margin-bottom: 80px;
+        }
+
+        body {
+            background: #1D1F20;
+          padding: 16px;
+        }
+
+        canvas {
+          border: 1px dotted red;
+        }
+
+        .chart-container {
+
+          position: relative;
+          margin: auto;
+          height: 80vh;
+          width: 80vw;
+        }
+
+    </style>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+
+
+  <body>
+
+
+    <h1>Smart Scale</h1>
+
+    <div class="container-xl">
+        <div class="row">
+            <div class="col-6 chart">
+                <canvas id="myChart" width="500" height="300"></canvas>
+            </div>
+            <div class="col-6 chart">
+                <canvas id="myChart2" width="500" height="300"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 chart">
+                <canvas id="myChart3" width="500" height="400"></canvas>
+            </div>
+            <div class="col-6 chart">
+                <canvas id="myChart4" width="500" height="400"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 chart">
+                <canvas id="myChart5" width="500" height="400"></canvas>
+            </div>
+            <div class="col-6 chart">
+                <canvas id="myChart6" width="500" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+      // Data from: https://data.giss.nasa.gov/gistemp/
+      // Mean from: https://earthobservatory.nasa.gov/world-of-change/DecadalTemp
+
+      window.addEventListener('load', setup);
+
+      async function setup() {
+
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const ctx2 = document.getElementById('myChart2').getContext('2d');
+        const ctx3 = document.getElementById('myChart3').getContext('2d');
+        const ctx4 = document.getElementById('myChart4').getContext('2d');
+        const ctx5 = document.getElementById('myChart5').getContext('2d');
+        const ctx6 = document.getElementById('myChart6').getContext('2d');
+
+        const dataTemps = await getData();
+
+
+        const myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: dataTemps.dates,
+            datasets: dataTemps.all_data
+          },
+          options: {}
+        });
+
+        const myChart2 = new Chart(ctx2, {
+          type: 'bar',
+          data: {
+            labels: dataTemps.dates,
+            datasets: dataTemps.all_data
+          },
+          options: {}
+        });
+
+        const myChart3 = new Chart(ctx3, {
+          type: 'pie',
+          data: {
+            labels: dataTemps.dates,
+            datasets: dataTemps.all_data
+          },
+          options: {}
+        });
+
+        const myChart4 = new Chart(ctx4, {
+          type: 'doughnut',
+          data: {
+            labels: dataTemps.dates,
+            datasets: dataTemps.all_data
+          },
+          options: {}
+        });
+
+        const myChart5 = new Chart(ctx5, {
+          type: 'radar',
+          data: {
+            labels: dataTemps.dates,
+            datasets: dataTemps.all_data
+          },
+          options: {}
+        });
+
+        const myChart6 = new Chart(ctx6, {
+          type: 'polarArea',
+          data: {
+            labels: dataTemps.dates,
+            datasets: dataTemps.all_data
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Chart.js Bubble Chart'
+              }
+            }
+          },
+        });
+
+
+      }
+
+
+      async function getData() {
+        // const response = await fetch('testdata.csv');
+        const response = await fetch('/media/AnimalWeights_2020-10-05-2020-10-20.csv');
+        const data = await response.text();
+        const years = [];
+
+        const rows = data.split('\n');
+        console.log(rows);
+
+        const dates = data.split('\n').slice(0,1)[0].split(',').slice(2);
+        console.log(dates);
+
+        var i=1;
+        var weights = [];
+        const all_data = [];
+        const color_palette = ['DodgerBlue', 'DeepPink', 'DarkViolet',
+        'DarkRed', 'DarkOrange', 'DarkGreen', 'Black', 'Gold', 'Indigo',
+        'LightCoral', 'Magenta', 'MediumAquaMarine', 'MediumSlateBlue',
+        'PaleVioletRed', 'Red'];
+
+        const color_palette_1 = [
+            "rgba(255,99,132,1)",
+            "rgba(0,99,132,1)",
+            "rgba(255,0,132,1)",
+            "rgba(255,99,0,1)",
+            "rgba(255,0,0,1)",
+            "rgba(255,255,0,1)",
+            "rgba(150,99,132,1)",
+            "rgba(60,150,132,1)",
+            "rgba(10,20,132,1)",
+            "rgba(100,99,50,1)",
+        ];
+
+
+        const color_palette_2 = [
+            "rgba(255,99,132,0.2)",
+            "rgba(0,99,132,0.2)",
+            "rgba(255,0,132,0.2)",
+            "rgba(255,99,0,0.2)",
+            "rgba(255,0,0,0.2)",
+            "rgba(255,255,0,0.2)",
+            "rgba(150,99,132,0.2)",
+            "rgba(60,150,132,0.2)",
+            "rgba(10,20,132,0.2)",
+            "rgba(100,99,50,0.2)",
+        ];
+
+          const color_palette_4 = [
+            "rgba(255,99,132,0.4)",
+            "rgba(0,99,132,0.4)",
+            "rgba(255,0,132,0.4)",
+            "rgba(255,99,0,0.4)",
+            "rgba(255,0,0,0.4)",
+            "rgba(255,255,0,0.4)",
+            "rgba(150,99,132,0.4)",
+            "rgba(60,150,132,0.4)",
+            "rgba(10,20,132,0.4)",
+            "rgba(100,99,50,0.4)",
+        ];
+
+
+
+
+
+
+
+        for(i=1; i<rows.length; i++){
+            const x = {
+                label: '',
+                data: '',
+                fill: false,
+                borderColor: 'DodgerBlue',
+                backgroundColor: 'DodgerBlue',
+                hoverBackgroundColor: "rgba(255,99,132,0.4)",
+                hoverBorderColor: "rgba(255,99,132,1)",
+                borderWidth: 2,
+                hoverOffset: 4
+              };
+
+            weights[i-1] = rows[i].split(',').slice(1);
+
+            x.label = weights[i-1][0];
+            x.data = weights[i-1].slice(1);
+            x.borderColor = color_palette_1[ (i-1)%color_palette_1.length ];
+            x.backgroundColor = color_palette_2[ (i-1)%color_palette_2.length ];
+            x.hoverBorderColor = color_palette_1[ (i-1)%color_palette_1.length ];
+            x.hoverBackgroundColor = color_palette_4[ (i-1)%color_palette_4.length ];
+
+            all_data[i-1] = x;
+        }
+        console.log(weights);
+
+        return { dates, all_data };
+      }
+    </script>
+  </body>
+</html>
