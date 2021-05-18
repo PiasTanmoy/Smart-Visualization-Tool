@@ -1,6 +1,5 @@
 
-  // Data from: https://data.giss.nasa.gov/gistemp/
-  // Mean from: https://earthobservatory.nasa.gov/world-of-change/DecadalTemp
+
 
   window.addEventListener('load', setup);
 
@@ -22,6 +21,24 @@
         datasets: dataTemps.all_data
       },
       options: {
+          onClick: (e) => {
+            const canvasPosition = Chart.helpers.getRelativePosition(e, chart);
+
+            // Substitute the appropriate scale IDs
+            const dataX = myChart.scales.xAxes.getValueForPixel(canvasPosition.x);
+            const dataY = myChart.scales.yAxes.getValueForPixel(canvasPosition.y);
+        },
+          events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
+          animations: {
+              tension: {
+                  duration: 1000,
+                  easing: 'linear',
+                  from: 0.3,
+                  to: 0,
+                  loop: false
+              },
+              events: ['click']
+          },
           scales: {
             yAxes: [{
                 ticks: {
@@ -35,6 +52,9 @@
             }]
         } ,
           plugins: {
+              tooltip:{
+
+              },
             legend: {
                 display: true,
                 labels: {
@@ -103,50 +123,15 @@
 
 
 
-    function generateTableHead(table, data) {
-      let thead = table.createTHead();
-      let row = thead.insertRow();
-      for (let key of data) {
-        let th = document.createElement("th");
-        let text = document.createTextNode(key);
-        th.appendChild(text);
-        row.appendChild(th);
-      }
-    }
-
-    function generateTable(table, data) {
-      for (let element of data) {
-        let row = table.insertRow();
-        for (key in element) {
-          let cell = row.insertCell();
-          let text = document.createTextNode(element[key]);
-          cell.appendChild(text);
-        }
-      }
-    }
-
-    let table = document.querySelector("table")
-    //       table.setAttribute("layout", "fitColumns");
-    // table.setAttribute("tooltips", "true");
-    // table.setAttribute("responsiveLayout", "hide");
-    //
-
-    let data = Object.keys(dataTemps.dates);
-    const dates = ['RFID | Dates'].concat(dataTemps.dates)
-    generateTableHead(table, dates);
-    //generateTable(table, dataTemps.dates);
-    generateTable(table, dataTemps.weights);
-
-
-
-
   }
 
 
   async function getData() {
-    // const response = await fetch('testdata.csv');
-    const response = await fetch('/media/AnimalWeights_2020-10-05-2020-10-20.csv');
+
+    const response = await fetch('/media/data/AnimalWeights_3.csv');
     const data = await response.text();
+
+    //console.log(single);
 
     const rows = data.split('\n');
     console.log(rows);
@@ -159,14 +144,11 @@
     var i=1;
     var weights = [];
     const all_data = [];
-    const color_palette = ['DodgerBlue', 'DeepPink', 'DarkViolet',
-    'DarkRed', 'DarkOrange', 'DarkGreen', 'Black', 'Gold', 'Indigo',
-    'LightCoral', 'Magenta', 'MediumAquaMarine', 'MediumSlateBlue',
-    'PaleVioletRed', 'Red'];
+
 
     const color_palette_1 = [
         "rgba(255,99,132,1)",
-        "rgba(0,99,132,1)",
+        "rgb(77,4,255, 1)",
         "rgba(255,0,132,1)",
         "rgba(255,99,0,1)",
         "rgba(255,0,0,1)",
@@ -180,7 +162,7 @@
 
     const color_palette_2 = [
         "rgba(255,99,132,0.2)",
-        "rgba(0,99,132,0.2)",
+        "rgba(77,4,255, 0.2)",
         "rgba(255,0,132,0.2)",
         "rgba(255,99,0,0.2)",
         "rgba(255,0,0,0.2)",
@@ -193,7 +175,7 @@
 
       const color_palette_4 = [
         "rgba(255,99,132,0.4)",
-        "rgba(0,99,132,0.4)",
+        "rgba(77,4,255, 0.4)",
         "rgba(255,0,132,0.4)",
         "rgba(255,99,0,0.4)",
         "rgba(255,0,0,0.4)",
@@ -218,7 +200,7 @@
             backgroundColor: 'DodgerBlue',
             hoverBackgroundColor: "rgba(255,99,132,0.4)",
             hoverBorderColor: "rgba(255,99,132,1)",
-            borderWidth: 3,
+            borderWidth: 2,
             hoverOffset: 4,
 
           };
@@ -238,6 +220,8 @@
     }
     console.log(weights);
     console.log(RFID);
+
+
 
     const  weights_per_date = [];
     const rows2 = data.split('\n').slice(1);
@@ -280,8 +264,7 @@
     }
 
 
-
-    return { dates, all_data, RFID, all_date2, weights };
+    return { dates, all_data, RFID, all_date2, weights};
   }
 
 

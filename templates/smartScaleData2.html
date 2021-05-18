@@ -28,10 +28,11 @@ initial-scale=1, maximum-scale=1, user-scalable=no">
     body {
         background: #1D1F20;
       padding: 16px;
+        color: white;
     }
 
     canvas {
-      border: 1px dotted red;
+      margin-bottom: 50px;
     }
 
     .chart-container {
@@ -41,6 +42,46 @@ initial-scale=1, maximum-scale=1, user-scalable=no">
       height: 80vh;
       width: 80vw;
     }
+
+    table, th, td {
+      border: 1px solid gray;
+        padding: 10px;
+        margin-bottom: 50px;
+    }
+    tr:hover {background-color: rgba(172, 145, 145, 0.24);}
+
+    table {
+    overflow: hidden;
+    }
+
+    tr:hover {
+      background-color: rgba(172, 145, 145, 0.24);
+
+    }
+    td:hover {
+
+
+    }
+
+    td, th {
+      position: relative;
+    }
+    td:hover::after,
+    th:hover::after {
+      content: "";
+      position: absolute;
+      background-color: rgba(172, 145, 145, 0.24);
+      left: 0;
+      top: -5000px;
+      height: 10000px;
+      width: 100%;
+      z-index: -1;
+    }
+
+
+
+
+
 
 </style>
 
@@ -54,31 +95,35 @@ initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <h1>Smart Scale</h1>
 
-<div class="container-xl">
-    <div class="row">
-        <div class="col-6 chart">
-            <canvas id="myChart" width="500" height="300"></canvas>
+
+<div class="container-fluid">
+        <div class="container-fluid" id="data-table">
+        <table>
+    <!-- here goes our data! -->
+        </table>
+    </div>
+
+        <div class="container-fluid">
+            <canvas id="myChart"></canvas>
         </div>
-        <div class="col-6 chart">
+        <div class="container-fluid">
             <canvas id="myChart2" width="500" height="300"></canvas>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-6 chart">
+
+
+        <div class="container-fluid">
             <canvas id="myChart3" width="500" height="400"></canvas>
         </div>
-        <div class="col-6 chart">
+        <div class="container-fluid">
             <canvas id="myChart4" width="500" height="400"></canvas>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-6 chart">
+
+        <div class="container-fluid">
             <canvas id="myChart5" width="500" height="400"></canvas>
         </div>
-        <div class="col-6 chart">
+        <div class="container-fluid">
             <canvas id="myChart6" width="500" height="400"></canvas>
         </div>
-    </div>
 </div>
 
 

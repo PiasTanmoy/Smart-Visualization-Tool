@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,
+initial-scale=1, maximum-scale=1, user-scalable=no">
+   <title>Dashboard-Date</title>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Load an icon library to show a hamburger menu (bars) on small screens -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../media/css/sidebar.css">
+    <link rel="stylesheet" href="../media/css/basic.css">
+    <link rel="stylesheet" href="../media/css/topnav.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+
+<body>
+
+<!-- The sidebar -->
+<div class="sidebar">
+
+    <a href="{% url 'dataSelection2' %}" >Dashboard</a>
+    <a href="{% url 'dataSelection2single' %}" >RFID</a>
+    <a href="{% url 'dataSelection2singleCol' %}" class="active">Date</a>
+    <a href="{% url 'getDataset' %}" >Select Date Range</a>
+    <a href="{% url 'logout' %}" >Logout</a>
+    <img src="../media/images/g2.png" width="100">
+
+</div>
+
+
+
+
+<!-- Page content -->
+<div class="content">
+
+<script>
+    var single = "{{single | escapejs}}";
+    console.log(single);
+</script>
+
+    <h1>Single View by Date</h1>
+
+    <table border="1">
+    <thead>
+        <tr>
+            {% for x in dataset %}
+                <th> {{ x }} </th>
+            {% endfor %}
+
+        </tr>
+    </thead>
+
+    {% for i, x in  datanumpy %}
+        <tr>
+
+        {% for d in x %}
+            <td>{{ d }} </td>
+        {% endfor %}
+
+
+        </tr>
+    {% endfor %}
+
+    <tr>
+        <td></td>
+        <td>View</td>
+    {% for i in nColumn %}
+        <td>
+            <form action="{% url 'dataSelection2singleCol' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="title" value="{{ i }}">
+              <input type="submit" value="View" class="btn btn-primary">
+            </form>
+        </td>
+    {% endfor %}
+    </tr>
+
+
+</table>
+
+
+    <div class="container-xl">
+        <div class="row">
+            <div class="col-6 chart">
+                <canvas id="myChart" width="500" height="300"></canvas>
+            </div>
+            <div class="col-6 chart">
+                <canvas id="myChart2" width="500" height="300"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 chart">
+                <canvas id="myChart3" width="500" height="400"></canvas>
+            </div>
+            <div class="col-6 chart">
+                <canvas id="myChart4" width="500" height="400"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 chart">
+                <canvas id="myChart5" width="500" height="400"></canvas>
+            </div>
+            <div class="col-6 chart">
+                <canvas id="myChart6" width="500" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{#<img src="../media/g.jpg">#}
+
+<script src="../media/JS/Graphs-single-col.js"></script>
+
+
+</body>
+</html>

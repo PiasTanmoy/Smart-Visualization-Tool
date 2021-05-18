@@ -1,0 +1,26 @@
+{% include "base.html" %}
+
+{% block content  %}
+
+<iframe src="http://localhost:5601/app/dashboards#/view/4c5dbd80-8b6d-11eb-9b82-2b2c0b0195cb?embed=true&_g=(filters:!(),
+refreshInterval:(pause:!t,value:0),
+time:(from:'2020-10-08T04:00:00.000Z',to:'2020-10-15T04:00:00.000Z'))&_a=(description:'',
+filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),
+panels:!((embeddableConfig:(enhancements:()),gridData:(h:15,i:'9f8430f2-7918-4060-80f5-ce68c258f416',w:24,x:24,y:0),
+id:f10aae70-8b6c-11eb-9b82-2b2c0b0195cb,panelIndex:'9f8430f2-7918-4060-80f5-ce68c258f416',type:lens,version:'7.11.0'),
+(embeddableConfig:(enhancements:()),gridData:(h:15,i:a5dbdb3a-1ab1-4a57-a46b-9d6dce036ca7,w:24,x:0,y:0),
+id:'20439c10-8b6d-11eb-9b82-2b2c0b0195cb',panelIndex:a5dbdb3a-1ab1-4a57-a46b-9d6dce036ca7,type:lens,version:'7.11.0'),
+(embeddableConfig:(enhancements:()),gridData:(h:15,i:'791492b3-11df-4be8-bb9a-62ff950e789f',w:24,x:0,y:15),
+id:'3b7bfe50-8b6d-11eb-9b82-2b2c0b0195cb',panelIndex:'791492b3-11df-4be8-bb9a-62ff950e789f',type:lens,version:'7.11.0')),
+query:(language:kuery,query:''),tags:!(),timeRestore:!f,title:am-3,viewMode:view)"
+        style="border: 0; width: 100%;" height="1000"></iframe>
+
+
+{#http://localhost:5601/goto/241c6a562a0e22d3b7fe93111ec53ecb#}
+
+<br><br><br>
+<a href="http://localhost:5601/goto/241c6a562a0e22d3b7fe93111ec53ecb">
+    <button class="btn btn-lg btn-primary btn-block">Kibana Dashboard</button>
+</a>
+
+{% endblock content %}

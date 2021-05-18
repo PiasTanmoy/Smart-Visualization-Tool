@@ -1,0 +1,78 @@
+
+
+
+
+<html>
+
+<head>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../media/css/login.css">
+
+  <title>Date Range</title>
+
+
+
+</head>
+
+<body>
+  <div class="main">
+
+  <h1 class="sign" align="center">Feed and Grain -> Animal Weights</h1>
+
+    <p class="sign" align="center">Select date range to update the Dashboard</p>
+
+    <form class="form1" method="POST">
+        {% csrf_token %}
+
+          <input type="text" class="un "  placeholder="From: mm-dd-yyyy" name="from_date" required autofocus>
+      <input type="text" class="pass" placeholder="To: mm-dd-yyyy" name="to_date" required>
+
+
+      <input type="submit" class="submit" align="center"></input>
+
+    </form>
+
+
+        {% if successful %}
+        <h2 align="center">Dataset Updated Successfully</h2>
+        <a href="{% url 'dataSelection2' %}" >
+            <button class="submit" >Dashboard</button>
+        </a>
+
+            {% else %}
+            <h4 align="center">It will take 15-20 seconds to update the Dashboard.</h4>
+            <a href="{% url 'dataSelection2' %}" >
+            <button class="submit" >View Dashboard</button>
+        </a>
+
+
+    {% endif %}
+
+
+    </div>
+
+{#  {% if successful %}#}
+{##}
+{##}
+{#            <div align="center">#}
+{#    <img src="../media/images/done.gif" >#}
+{##}
+{#   {% else %}#}
+{#                <div align="center">#}
+{#        <img src="../media/images/loading2.gif" >#}
+{#    </div>#}
+{##}
+{#</div>#}
+{##}
+{##}
+{#    {% endif %}#}
+
+</body>
+
+</html>
+
